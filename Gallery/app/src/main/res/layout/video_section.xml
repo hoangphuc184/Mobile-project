@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Album 1"
+                android:text="Video 1"
                 android:textColor="@color/white"
                 android:textSize="40dp"></TextView>
 
@@ -29,23 +29,10 @@
                 android:layout_height="137dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_1"></ImageView>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_2"></ImageView>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_3"></ImageView>
+                <VideoView
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent">
+                </VideoView>
             </LinearLayout>
 
 
@@ -59,7 +46,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Album 2"
+                android:text="Video 2"
                 android:textColor="@color/white"
                 android:textSize="40dp"></TextView>
 
@@ -68,23 +55,10 @@
                 android:layout_height="137dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_1"></ImageView>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_2"></ImageView>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_3"></ImageView>
+                <VideoView
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent">
+                </VideoView>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -96,7 +70,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Album 3"
+                android:text="Video 3"
                 android:textColor="@color/white"
                 android:textSize="40dp"></TextView>
 
@@ -105,23 +79,10 @@
                 android:layout_height="137dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_1"></ImageView>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_2"></ImageView>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/photo_3"></ImageView>
+                <VideoView
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent">
+                </VideoView>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
