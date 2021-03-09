@@ -95,40 +95,46 @@
         android:layout_weight="1">
 
         <ImageButton
+            android:id="@+id/album_views"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/photos"
+            android:onClick="onClick"
             ></ImageButton>
         <ImageButton
+            android:id="@+id/video_views"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/videos"
-            android:text="no"
+            android:onClick="onClick"
             ></ImageButton>
 
         <ImageButton
+            android:id="@+id/loc_views"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/locations"
-
+            android:onClick="onClick"
             ></ImageButton>
 
         <ImageButton
+            android:id="@+id/fav_views"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/farvorites"
             android:layout_weight="1"
-
+            android:onClick="onClick"
             ></ImageButton>
         <ImageButton
+            android:id="@+id/sec_views"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/securities"
             android:layout_weight="1"
-
+            android:onClick="onClick"
             ></ImageButton>
     </LinearLayout>
 </LinearLayout>

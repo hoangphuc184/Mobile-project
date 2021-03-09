@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity {
+public class FavoriteViewActivity extends AppCompatActivity {
     ImageButton btnAlbum;
     ImageButton btnVideo;
     ImageButton btnLoc;
@@ -16,13 +16,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.favorites_section);
 
         btnAlbum = (ImageButton)findViewById(R.id.album_views);
         btnAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                Intent intent = new Intent(FavoriteViewActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, VideoViewActivity.class);
+                Intent intent = new Intent(FavoriteViewActivity.this, VideoViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LocationViewActivity.class);
+                Intent intent = new Intent(FavoriteViewActivity.this, LocationViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FavoriteViewActivity.class);
+                Intent intent = new Intent(FavoriteViewActivity.this, FavoriteViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -58,10 +58,9 @@ public class MainActivity extends AppCompatActivity {
         btnSec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SecurityViewActivity.class);
+                Intent intent = new Intent(FavoriteViewActivity.this, SecurityViewActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 }
