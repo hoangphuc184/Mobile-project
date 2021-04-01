@@ -18,7 +18,7 @@ public class LocationViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_section);
 
-        btnAlbum = (ImageButton)findViewById(R.id.album_views);
+        btnAlbum = (ImageButton)findViewById(R.id.photos_view);
         btnAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +27,7 @@ public class LocationViewActivity extends AppCompatActivity {
             }
         });
 
-        btnVideo = (ImageButton)findViewById(R.id.video_views);
+        btnVideo = (ImageButton)findViewById(R.id.videos_view);
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +36,7 @@ public class LocationViewActivity extends AppCompatActivity {
             }
         });
 
-        btnLoc = (ImageButton)findViewById(R.id.loc_views);
+        btnLoc = (ImageButton)findViewById(R.id.location_view);
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,7 @@ public class LocationViewActivity extends AppCompatActivity {
             }
         });
 
-        btnFav = (ImageButton)findViewById(R.id.fav_views);
+        btnFav = (ImageButton)findViewById(R.id.favorite_view);
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class LocationViewActivity extends AppCompatActivity {
             }
         });
 
-        btnSec = (ImageButton)findViewById(R.id.sec_views);
+        btnSec = (ImageButton)findViewById(R.id.secure_view);
         btnSec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
