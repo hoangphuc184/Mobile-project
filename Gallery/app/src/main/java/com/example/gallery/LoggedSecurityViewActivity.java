@@ -23,6 +23,7 @@ public class LoggedSecurityViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoggedSecurityViewActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -32,6 +33,7 @@ public class LoggedSecurityViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoggedSecurityViewActivity.this, VideoViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -41,6 +43,7 @@ public class LoggedSecurityViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoggedSecurityViewActivity.this, LocationViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -50,6 +53,7 @@ public class LoggedSecurityViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoggedSecurityViewActivity.this, FavoriteViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
