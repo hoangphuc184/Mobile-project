@@ -23,6 +23,7 @@ public class LocationViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationViewActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -32,6 +33,7 @@ public class LocationViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationViewActivity.this, VideoViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -41,6 +43,7 @@ public class LocationViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationViewActivity.this, LocationViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -50,6 +53,7 @@ public class LocationViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationViewActivity.this, FavoriteViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

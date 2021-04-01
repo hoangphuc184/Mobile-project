@@ -23,6 +23,7 @@ public class FavoriteViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FavoriteViewActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -32,6 +33,7 @@ public class FavoriteViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FavoriteViewActivity.this, VideoViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -41,6 +43,7 @@ public class FavoriteViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FavoriteViewActivity.this, LocationViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -50,6 +53,7 @@ public class FavoriteViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FavoriteViewActivity.this, FavoriteViewActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
