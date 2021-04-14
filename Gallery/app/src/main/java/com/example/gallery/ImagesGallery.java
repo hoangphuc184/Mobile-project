@@ -2,10 +2,14 @@ package com.example.gallery;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ImagesGallery {
 
@@ -31,6 +35,16 @@ public class ImagesGallery {
 
             listOfAllImages.add(absoPathOfImage);
         }
+        for (int i =0; i<listOfAllImages.size(); i++){
+            String pathToFile = listOfAllImages.get(i);
+            File file = new File(pathToFile);
+            if(file.exists()) {
+                long date = file.lastModified();
+                Date d = new Date(date);
+                System.out.println(d +"i"+i);
+            }
+        }
+
 
         return listOfAllImages;
     }
