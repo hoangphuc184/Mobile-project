@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
         } else {
-            loadImages();
+            try {
+                loadImages();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         btnPhoto = (ImageButton)findViewById(R.id.photos_view);
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadImages(){
+    private void loadImages() throws IOException {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         images = ImagesGallery.listOfImages(this);
@@ -126,7 +131,11 @@ public class MainActivity extends AppCompatActivity {
         {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 Toast.makeText(this, "Read external storage permission granted", Toast.LENGTH_SHORT).show();
-                loadImages();
+                try {
+                    loadImages();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else
             {

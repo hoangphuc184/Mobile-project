@@ -12,6 +12,7 @@
         android:contentDescription="Gallery image"
         app:layout_constraintDimensionRatio="1"
         android:id="@+id/image"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
