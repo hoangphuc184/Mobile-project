@@ -30,7 +30,7 @@ public class VideoViewActivity extends AppCompatActivity {
         setContentView(R.layout.video_section);
 
         recyclerView= findViewById(R.id.recyclerview_gallery_videos);
-        layoutManager = new GridLayoutManager(getApplicationContext(),3);
+        layoutManager = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         listOfVideo = new ArrayList<>();
         fetchVideoFromGallery();
@@ -116,7 +116,6 @@ public class VideoViewActivity extends AppCompatActivity {
 
             listOfVideo.add(videoModel);
         }
-
         VideoAdapter videoAdapter = new VideoAdapter(getApplicationContext(), listOfVideo, VideoViewActivity.this);
         recyclerView.setAdapter(videoAdapter);
 
