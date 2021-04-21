@@ -61,7 +61,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
+        if(ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
+        } else {
+            try {
+                loadImages();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         btnPhoto = (ImageButton)findViewById(R.id.photos_view);
         btnPhoto.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == MY_READ_PERMISSION_CODE)
         {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, "Read external storage permission granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Access external storage permission granted", Toast.LENGTH_LONG).show();
                 try {
                     loadImages();
                 } catch (IOException e) {
