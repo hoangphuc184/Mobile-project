@@ -1,6 +1,7 @@
 package com.example.gallery;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
-    Toolbar toolbarTop;
+    Toolbar mToolbar;
 
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerview_gallery_images);
-        toolbarTop = findViewById(R.id.toolbarTop);
-        setSupportActionBar(toolbarTop);
+        mToolbar = findViewById(R.id.toolbarAlbums);
+        setSupportActionBar(mToolbar);
 
         if(ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){

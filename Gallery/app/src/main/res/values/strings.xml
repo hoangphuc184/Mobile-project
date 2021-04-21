@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Gallery</string>
     <string name="albums">Albums</string>
+    <string name="videos">Videos</string>
+    <string name="favorites">Favorites</string>
+    <string name="locations">Locations</string>
+    <string name="secure_folder">Secure Folder</string>
 </resources>

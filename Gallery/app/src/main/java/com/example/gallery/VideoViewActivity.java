@@ -21,13 +21,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class VideoViewActivity extends AppCompatActivity {
-//    ImageButton btnAlbum;
-//    ImageButton btnVideo;
-//    ImageButton btnLoc;
-//    ImageButton btnFav;
-//    ImageButton btnSec;
-    private Toolbar toolbar;
-    private ActionBar myActionbar;
+    ImageButton btnAlbum;
+    ImageButton btnVideo;
+    ImageButton btnLoc;
+    ImageButton btnFav;
+    ImageButton btnSec;
+    private Toolbar mToolbar;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -38,21 +37,10 @@ public class VideoViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_section);
 
-        toolbar = findViewById(R.id.toolbarVideo);
-        setSupportActionBar(toolbar);
-
-        myActionbar = getSupportActionBar();
-        myActionbar.setTitle("Videos");
-        myActionbar.setDisplayHomeAsUpEnabled(true);
-
-        recyclerView= findViewById(R.id.recyclerview_gallery_videos);
-        layoutManager = new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(layoutManager);
-        listOfVideo = new ArrayList<>();
-        fetchVideoFromGallery();
-
-//        btnAlbum = (ImageButton)findViewById(R.id.photos_view);
-//        btnAlbum.setOnClickListener(new View.OnClickListener() {
+        mToolbar = findViewById(R.id.toolbarVideos);
+        setSupportActionBar(mToolbar);
+//        mToolbar.setNavigationIcon(R.drawable.ic_back);
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                Intent intent = new Intent(VideoViewActivity.this, MainActivity.class);
@@ -60,45 +48,61 @@ public class VideoViewActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-//
-//        btnVideo = (ImageButton)findViewById(R.id.videos_view);
-//        btnVideo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(VideoViewActivity.this, VideoViewActivity.class);
-//                finish();
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnLoc = (ImageButton)findViewById(R.id.location_view);
-//        btnLoc.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(VideoViewActivity.this, LocationViewActivity.class);
-//                finish();
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnFav = (ImageButton)findViewById(R.id.favorite_view);
-//        btnFav.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(VideoViewActivity.this, FavoriteViewActivity.class);
-//                finish();
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnSec = (ImageButton)findViewById(R.id.secure_view);
-//        btnSec.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(VideoViewActivity.this, SecurityViewActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
+        recyclerView= findViewById(R.id.recyclerview_gallery_videos);
+        layoutManager = new GridLayoutManager(getApplicationContext(),2);
+        recyclerView.setLayoutManager(layoutManager);
+        listOfVideo = new ArrayList<>();
+        fetchVideoFromGallery();
+
+        btnAlbum = (ImageButton)findViewById(R.id.photos_view);
+        btnAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoViewActivity.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        btnVideo = (ImageButton)findViewById(R.id.videos_view);
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoViewActivity.this, VideoViewActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        btnLoc = (ImageButton)findViewById(R.id.location_view);
+        btnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoViewActivity.this, LocationViewActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        btnFav = (ImageButton)findViewById(R.id.favorite_view);
+        btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoViewActivity.this, FavoriteViewActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        btnSec = (ImageButton)findViewById(R.id.secure_view);
+        btnSec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoViewActivity.this, SecurityViewActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

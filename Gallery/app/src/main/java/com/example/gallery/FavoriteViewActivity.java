@@ -1,11 +1,16 @@
 package com.example.gallery;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class FavoriteViewActivity extends AppCompatActivity {
     ImageButton btnAlbum;
@@ -13,10 +18,15 @@ public class FavoriteViewActivity extends AppCompatActivity {
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorites_section);
+
+        mToolbar = findViewById(R.id.toolbarFavorites);
+        setSupportActionBar(mToolbar);
 
         btnAlbum = (ImageButton)findViewById(R.id.photos_view);
         btnAlbum.setOnClickListener(new View.OnClickListener() {
@@ -66,5 +76,27 @@ public class FavoriteViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.setting, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.about:
+                Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.setting:
+                Toast.makeText(getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.create_album:
+                Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
