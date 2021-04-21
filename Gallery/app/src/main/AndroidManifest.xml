@@ -16,7 +16,13 @@
         <activity android:name=".VideoPlayActivity"></activity>
         <activity android:name=".FullScreenActivity" />
         <activity android:name=".LoggedSecurityViewActivity" />
-        <activity android:name=".VideoViewActivity" />
+        <activity android:name=".VideoViewActivity"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:value="android.support.PARENT_ACTIVITY"
+                android:name="com.example.gallery.MainActivity"/>
+        </activity>
         <activity android:name=".FavoriteViewActivity" />
         <activity android:name=".SecurityViewActivity" />
         <activity android:name=".LocationViewActivity" />
