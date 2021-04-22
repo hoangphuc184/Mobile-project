@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnSec;
     Toolbar mToolbar;
 
-    Button btnCamera;
+    ImageButton btnCamera;
 
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -144,14 +145,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-        }
     }
 
     @Override

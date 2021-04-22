@@ -116,17 +116,17 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/btn_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
         android:contentDescription="Camera"
-        app:srcCompat="@drawable/ic_camera"
-        tools:ignore="VectorDrawableCompat"
-        app:tint="@color/white"
-        android:layout_marginRight="20dp" />
+        android:src="@drawable/ic_camera"
+        app:tint="@color/black"
+        android:background="@drawable/background_camera_button"
+        android:layout_marginRight="20dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
