@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gallery">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gallery">
+        <activity android:name=".DetailsScreen"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,15 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoPlayActivity"></activity>
+        <activity android:name=".VideoPlayActivity" />
         <activity android:name=".FullScreenActivity" />
         <activity android:name=".LoggedSecurityViewActivity" />
-        <activity android:name=".VideoViewActivity">
-        </activity>
+        <activity android:name=".VideoViewActivity"></activity>
         <activity android:name=".FavoriteViewActivity" />
         <activity android:name=".SecurityViewActivity" />
         <activity android:name=".LocationViewActivity" />
-
     </application>
 
 </manifest>

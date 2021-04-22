@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 public class FullScreenActivity extends AppCompatActivity {
     ImageButton btnMore;
@@ -48,7 +49,10 @@ public class FullScreenActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.details:
-                        Toast.makeText(getApplicationContext(), "Detail clicked", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(FullScreenActivity.this, DetailsScreen.class);
+                        finish();
+                        intent2.putExtra("path", path);
+                        startActivity(intent2);
                         break;
                 }
                 return true;
