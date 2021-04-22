@@ -5,24 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#333333"
+    android:fitsSystemWindows="true"
     tools:context=".FullScreenActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarFullScreen"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/toolbar_bg"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/full_screen"/>
 
-    <ImageButton
-        android:id="@+id/btnMore"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_28sdp"
-        android:layout_marginLeft="@dimen/_28sdp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/custom_button"
-        android:src="@drawable/ic_more"
-        app:layout_constraintVertical_bias="0.529" />
 </RelativeLayout>
