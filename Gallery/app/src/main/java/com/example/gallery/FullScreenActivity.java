@@ -1,6 +1,8 @@
 package com.example.gallery;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -14,8 +16,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -23,11 +27,12 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 public class FullScreenActivity extends AppCompatActivity {
     ImageButton btnMore;
     String path;
+    Toolbar mToolbar;
+
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
@@ -49,10 +54,7 @@ public class FullScreenActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.details:
-                        Intent intent2 = new Intent(FullScreenActivity.this, DetailsScreen.class);
-                        finish();
-                        intent2.putExtra("path", path);
-                        startActivity(intent2);
+                        Toast.makeText(getApplicationContext(), "Detail clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;
@@ -95,17 +97,17 @@ public class FullScreenActivity extends AppCompatActivity {
         path = i.getExtras().getString("path");
         File imgFile = new  File(path);
 
-        btnMore = findViewById(R.id.btnMore);
-        btnMore.setOnClickListener(new View.OnClickListener() {
+        mToolbar = findViewById(R.id.toolbarFullScreen);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showMenu();
+                Intent intent =  new Intent(FullScreenActivity.this, MainActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
-
-
-
-
 
         if(imgFile.exists()){
 
@@ -142,5 +144,65 @@ public class FullScreenActivity extends AppCompatActivity {
             myImage.setImageBitmap(rotatedBitmap);
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.setting_img_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete:
+                deleteImage(path);
+                Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.details:
+                Intent intent2 = new Intent(FullScreenActivity.this, DetailsScreen.class);
+                finish();
+                intent2.putExtra("path", path);
+                startActivity(intent2);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        mToolbar.animate().translationY(-mToolbar.getHeight()).setInterpolator(new LinearInterpolator());
+    }
+
+    // Shows the system bars by removing all the flags
+// except for the ones that make the content appear under the system bars.
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }
