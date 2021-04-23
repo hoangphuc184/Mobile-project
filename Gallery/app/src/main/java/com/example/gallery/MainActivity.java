@@ -44,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> images;
 
 
-    private static final int MY_READ_PERMISSION_CODE = 101;
-
+    private static final int MY_PERMISSION_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         btnCamera = findViewById(R.id.btn_camera);
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-                    Manifest.permission.CAMERA
-            }, 100);
-        }
+
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA
+                    }, MY_PERMISSION_CODE);
         } else {
             try {
                 loadImages();
@@ -84,17 +82,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
-        } else {
-            try {
-                loadImages();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if(ContextCompat.checkSelfPermission(MainActivity.this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_WRITE_PERMISSION_CODE);
+//        }
+//
+//        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+//                    Manifest.permission.CAMERA
+//            }, 100);
+//        }
 
         btnPhoto = (ImageButton)findViewById(R.id.photos_view);
         btnPhoto.setOnClickListener(new View.OnClickListener() {
@@ -189,20 +187,16 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == MY_READ_PERMISSION_CODE)
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, "Access external storage permission granted", Toast.LENGTH_LONG).show();
+        switch (requestCode){
+            case MY_PERMISSION_CODE:{
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
                 try {
                     loadImages();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else
-            {
-                Toast.makeText(this, "Read external storage permission denied", Toast.LENGTH_SHORT).show();
-            }
+                break;}
+
         }
-    }
-}
+
+}}
