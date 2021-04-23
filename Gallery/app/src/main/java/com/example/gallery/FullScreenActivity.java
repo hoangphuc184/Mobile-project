@@ -40,29 +40,6 @@ public class FullScreenActivity extends AppCompatActivity {
                 matrix, true);
     }
 
-    private void showMenu(){
-        PopupMenu popupMenu = new PopupMenu(this, btnMore);
-        popupMenu.getMenuInflater().inflate(R.menu.setting_img_view, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.delete:
-                        deleteImage(path);
-                        Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
-                        finish();
-                        startActivity(intent);
-                        break;
-                    case R.id.details:
-                        Toast.makeText(getApplicationContext(), "Detail clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return true;
-            }
-        });
-        popupMenu.show();
-    }
-
     private void deleteImage(String path) {
         File file = new File(path);
 
@@ -99,6 +76,7 @@ public class FullScreenActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.toolbarFullScreen);
         setSupportActionBar(mToolbar);
+        mToolbar.setTitle("");
         mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +171,7 @@ public class FullScreenActivity extends AppCompatActivity {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
-        mToolbar.animate().translationY(-mToolbar.getHeight()).setInterpolator(new LinearInterpolator());
+        //mToolbar.animate().translationY(-mToolbar.getHeight()).setInterpolator(new LinearInterpolator());
     }
 
     // Shows the system bars by removing all the flags
