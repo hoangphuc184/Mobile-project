@@ -35,24 +35,6 @@ public class ImagesGallery {
 
             listOfAllImages.add(absoPathOfImage);
         }
-/*        for (int i =0; i<listOfAllImages.size(); i++)
-        {
-            ExifInterface exif = new ExifInterface(listOfAllImages.get(i));
-            exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
-            exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
-            exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
-            exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
-            System.out.println(exif.getAttribute(ExifInterface.TAG_DEFAULT_CROP_SIZE) +"9999999999999999999999999999999999999");
-        }*/
-            for (int i =0; i<listOfAllImages.size(); i++){
-            String pathToFile = listOfAllImages.get(i);
-            File file = new File(pathToFile);
-            if(file.exists()) {
-                long date = file.lastModified();
-                Date d = new Date(date);
-            }
-        }
-
 
         return listOfAllImages;
     }
