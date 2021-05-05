@@ -160,6 +160,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.setting:
                 Toast.makeText(getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.change_to_by_date:
+                Intent intent = new Intent(MainActivity.this, ByDateActivity.class);
+                finish();
+                startActivity(intent);
+                break;
             case R.id.create_album:
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
                 break;
@@ -179,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         recyclerView.setAdapter(galleryAdapter);
     }
 
@@ -199,4 +203,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-}}
+}
+}
