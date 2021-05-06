@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class VideoViewActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class VideoViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<VideoModel> listOfVideo;
+    VideoAdapter videoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class VideoViewActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.toolbarVideos);
         setSupportActionBar(mToolbar);
+
 //        mToolbar.setNavigationIcon(R.drawable.ic_back);
 //        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -52,8 +55,12 @@ public class VideoViewActivity extends AppCompatActivity {
         recyclerView= findViewById(R.id.recyclerview_gallery_videos);
         layoutManager = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
-        listOfVideo = new ArrayList<>();
-        fetchVideoFromGallery();
+
+        try {
+            fetchVideoFromGallery();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         btnAlbum = (ImageButton)findViewById(R.id.photos_view);
         btnAlbum.setOnClickListener(new View.OnClickListener() {
@@ -128,37 +135,12 @@ public class VideoViewActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchVideoFromGallery() {
-
-        Uri uri;
-        Cursor cursor;
-        int columnIndex, thumbnail;
-
-        String absolutePath;
-
-        uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String projection[] = {MediaStore.MediaColumns.DATA,
-                MediaStore.Video.Media.BUCKET_DISPLAY_NAME,
-                MediaStore.Video.Media._ID,
-                MediaStore.Video.Thumbnails.DATA,
-        };
-
-        String orderBy = MediaStore.Images.Media.DATE_TAKEN;
-        cursor = getApplicationContext().getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
-        columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        thumbnail = cursor.getColumnIndexOrThrow(MediaStore.Video.Thumbnails.DATA);
-
-        while (cursor.moveToNext()){
-            absolutePath = cursor.getString(columnIndex);
-
-            VideoModel videoModel = new VideoModel();
-            videoModel.setSelected(false);
-            videoModel.setVideoPath(absolutePath);
-            videoModel.setVideoThumb(cursor.getString(thumbnail));
-
-            listOfVideo.add(videoModel);
+    private void fetchVideoFromGallery() throws IOException {
+        listOfVideo = VideosGallery.listOfVideos(this);
+        for (int  i= 0; i<listOfVideo.size();i++){
+            System.out.println(listOfVideo.get(i));
         }
-        VideoAdapter videoAdapter = new VideoAdapter(getApplicationContext(), listOfVideo, VideoViewActivity.this);
+        videoAdapter = new VideoAdapter(this, listOfVideo, VideoViewActivity.this);
         recyclerView.setAdapter(videoAdapter);
 
     }
