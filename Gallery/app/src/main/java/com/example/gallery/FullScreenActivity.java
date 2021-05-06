@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 
 public class FullScreenActivity extends AppCompatActivity {
     ImageButton btnMore;
+    ImageButton btnBack;
     String path;
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
@@ -119,9 +120,13 @@ public class FullScreenActivity extends AppCompatActivity {
             }
         });
 
-
-
-
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         if(imgFile.exists()){
 

@@ -52,11 +52,13 @@ public class DetailsScreen extends AppCompatActivity {
         width_height.setText(imageWidth + " x " + imageHeight);
 
         btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        btnBack.setOnClickListener(v -> {
+
+            Intent intent2 = new Intent(DetailsScreen.this, FullScreenActivity.class);
+            intent2.putExtra("path", path);
+            finish();
+            startActivity(intent2);
+
         });
     }
 }
