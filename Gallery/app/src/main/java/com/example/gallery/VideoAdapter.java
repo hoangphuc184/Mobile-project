@@ -41,10 +41,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull VideoAdapter.ViewHolder holder, int position) {
         Glide.with(context).load("file://" + listOfVideo.get(position).getVideoThumb()).skipMemoryCache(false).into(holder.imageView);
 
-        holder.r1_select.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        holder.r1_select.setAlpha(0);
-
-        holder.r1_select.setOnClickListener((v) -> {
+        holder.imageView.setOnClickListener((v) -> {
             Intent intent = new Intent(context, VideoPlayActivity.class);
             intent.putExtra("Video", listOfVideo.get(position).getVideoPath());
             activity.startActivity(intent);
@@ -59,11 +56,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
-        RelativeLayout r1_select;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.iv_image);
-            r1_select = (RelativeLayout) itemView.findViewById(R.id.r1_select);
         }
     }
 }
