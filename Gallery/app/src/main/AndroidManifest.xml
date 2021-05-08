@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gallery">
         <activity android:name=".DetailsScreen"></activity>
+        <activity android:name=".VideoDetailsScreen"/>
         <activity android:name=".ByDateActivity"></activity>
         <activity android:name=".Settings"
             android:parentActivityName=".MainActivity">
