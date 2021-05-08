@@ -143,10 +143,11 @@ public class ByDateActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.setting:
-                Toast.makeText(getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+                Intent intent_setting = new Intent(ByDateActivity.this, Settings.class);
+                startActivity(intent_setting);
                 break;
             case R.id.change_to_by_date:
-            break;
+                break;
             case R.id.create_album:
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
                 break;

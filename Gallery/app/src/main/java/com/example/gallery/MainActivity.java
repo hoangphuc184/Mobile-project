@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton btnCamera;
 
+    SharedPreferences sharedPreferences = null;
+
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
     List<String> images;
@@ -54,10 +58,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview_gallery_images);
         mToolbar = findViewById(R.id.toolbarAlbums);
         setSupportActionBar(mToolbar);
+
+        sharedPreferences = getSharedPreferences("theme", 0);
+        Boolean booleanValue = sharedPreferences.getBoolean("dark_mode", true);
+        if (booleanValue){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         btnCamera = findViewById(R.id.btn_camera);
-
-
-
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +169,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.setting:
-                Toast.makeText(getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+                Intent intent_setting = new Intent(MainActivity.this, Settings.class);
+                startActivity(intent_setting);
                 break;
             case R.id.change_to_by_date:
                 Intent intent = new Intent(MainActivity.this, ByDateActivity.class);

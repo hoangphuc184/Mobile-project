@@ -19,6 +19,10 @@
         android:theme="@style/Theme.Gallery">
         <activity android:name=".DetailsScreen"></activity>
         <activity android:name=".ByDateActivity"></activity>
+        <activity android:name=".Settings"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

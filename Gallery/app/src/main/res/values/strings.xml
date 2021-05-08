@@ -5,4 +5,6 @@
     <string name="favorites">Favorites</string>
     <string name="locations">Locations</string>
     <string name="secure_folder">Secure Folder</string>
+    <string name="settings">Settings</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>
