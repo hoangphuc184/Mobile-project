@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ギャラリー</string>
+    <string name="albums">アルバム</string>
+    <string name="videos">ビデオ</string>
+    <string name="favorites">お気に入り</string>
+    <string name="locations">ロケーション</string>
+    <string name="secure_folder">安全なフォルダ</string>
+    <string name="settings">設定</string>
+    <string name="dark_mode">ダークモード</string>
+    <string name="details">詳細</string>
+    <string name="input_your_password">パスワードを入力してください</string>
+    <string name="log_in">ログイン</string>
+    <string name="hint_password">パスワード</string>
+    <string name="language">言語</string>
+    <string name="choose_language">言語を選択</string>
+    <string name="delete_pic">削除</string>
+    <string name="set_as_wallpaper">壁紙にする</string>
+    <string name="create_album">アルバムを作成する</string>
+    <string name="view_by_date">日付で表示</string>
+</resources>

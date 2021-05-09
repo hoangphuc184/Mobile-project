@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/delete"
-        android:title="Delete"/>
+        android:title="@string/delete_pic"/>
     <item android:id="@+id/setWall"
-        android:title="Set as Wallpaper"/>
+        android:title="@string/set_as_wallpaper"/>
     <item android:id="@+id/details"
-        android:title="Details"/>
+        android:title="@string/details"/>
 </menu>

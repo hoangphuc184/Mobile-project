@@ -139,11 +139,10 @@ public class ByDateActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.about:
-                Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.setting:
                 Intent intent_setting = new Intent(ByDateActivity.this, Settings.class);
+                intent_setting.putExtra("CallingActivity", ByDateActivity.class.toString());
+                finish();
                 startActivity(intent_setting);
                 break;
             case R.id.change_to_by_date:

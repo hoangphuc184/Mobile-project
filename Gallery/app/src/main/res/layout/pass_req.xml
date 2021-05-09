@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/black">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:layout_weight="6"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:layout_centerInParent="true">
         <TextView
+            android:id="@+id/inputTxt"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Input your password"
-            android:textSize="30dp"
+            android:layout_height="@dimen/_60sdp"
+            android:text="@string/input_your_password"
+            android:textSize="@dimen/_25ssp"
             android:textColor="@color/white"
-            android:layout_marginTop="250dp"
+            android:fontFamily="sans-serif"
             android:gravity="center"/>
 
         <EditText
             android:id="@+id/input_password"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/white"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/custom_bar"
+            android:backgroundTint="@color/white"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/_16ssp"
             android:ems="10"
             android:drawableLeft="@drawable/ic_lock"
-            android:hint="Password"
+            android:hint="@string/hint_password"
             android:inputType="textPassword"
-            />
+            android:drawableStart="@drawable/ic_lock"
+            android:layout_below="@+id/inputTxt"/>
 
         <Button
             android:id="@+id/logInButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Log in"
-            android:onClick="onClick"/>
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/custom_bar"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/log_in"
+            android:textSize="@dimen/_16ssp"
+            android:onClick="onClick"
+            android:layout_below="@+id/input_password"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>

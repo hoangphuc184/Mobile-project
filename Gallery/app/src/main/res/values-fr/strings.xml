@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Galerie</string>
+    <string name="albums">Album</string>
+    <string name="videos">Vidéo</string>
+    <string name="favorites">Préféré</string>
+    <string name="locations">Emplacement</string>
+    <string name="secure_folder">Dossier sécurisé</string>
+    <string name="settings">Paramètres</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="details">Des détails</string>
+    <string name="input_your_password">Entrez votre mot de passe</string>
+    <string name="log_in">Connexion</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="language">Langue</string>
+    <string name="choose_language">Choisissez la langue</string>
+    <string name="delete_pic">Effacer</string>
+    <string name="set_as_wallpaper">Définir en tant que fond décran</string>
+    <string name="create_album">Créer un album</string>
+    <string name="view_by_date">Voir par date</string>
+</resources>

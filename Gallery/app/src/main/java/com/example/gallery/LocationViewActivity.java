@@ -88,11 +88,11 @@ public class LocationViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.about:
-                Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.setting:
-                Toast.makeText(getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+                Intent intent_setting = new Intent(LocationViewActivity.this, Settings.class);
+                intent_setting.putExtra("CallingActivity", LocationViewActivity.class.toString());
+                finish();
+                startActivity(intent_setting);
                 break;
             case R.id.create_album:
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
