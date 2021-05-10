@@ -1,16 +1,27 @@
 package com.example.gallery;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
 
@@ -18,27 +29,58 @@ public class Settings extends AppCompatActivity {
     ActionBar mActionbar;
     SwitchCompat switchCompat;
     SharedPreferences sharedPreferences = null;
+    TextView change_lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_settings);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbarSettings);
         setSupportActionBar(mToolbar);
-        mActionbar = getSupportActionBar();
-        mActionbar.setHomeAsUpIndicator(R.drawable.ic_back);
-        mActionbar.setDisplayHomeAsUpEnabled(true);
+//        mActionbar = getSupportActionBar();
+//        mActionbar.setHomeAsUpIndicator(R.drawable.ic_back);
+//        mActionbar.setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationIcon(R.drawable.ic_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = getIntent().getExtras();
+                String activityName = bundle.getString("CallingActivity");
 
-//        mToolbar.setNavigationIcon(R.drawable.ic_back);
-//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Settings.this, MainActivity.class);
-//                finish();
-//                startActivity(intent);
-//            }
-//        });
+                if (activityName.equals(MainActivity.class.toString())){
+                    Intent intent = new Intent(Settings.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(ByDateActivity.class.toString())){
+                    Intent intent = new Intent(Settings.this, ByDateActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(FavoriteViewActivity.class.toString())){
+                    Intent intent = new Intent(Settings.this, FavoriteViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(LocationViewActivity.class.toString())){
+                    Intent intent = new Intent(Settings.this, LocationViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(LoggedSecurityViewActivity.class.toString())){
+                    Intent intent = new Intent(Settings.this, LoggedSecurityViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(VideoViewActivity.class.toString())){
+                    Intent intent = new Intent(Settings.this, VideoViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+            }
+        });
 
         switchCompat = findViewById(R.id.switch_night);
 
@@ -61,17 +103,92 @@ public class Settings extends AppCompatActivity {
                     switchCompat.setChecked(true);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("dark_mode", true);
-                    editor.commit();
+                    editor.apply();
                 }
                 else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     switchCompat.setChecked(false);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("dark_mode", false);
-                    editor.commit();
+                    editor.apply();
                 }
             }
         });
 
+        change_lang = findViewById(R.id.language_change);
+        change_lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeLanguageDialog();
+            }
+        });
+    }
+
+    private void showChangeLanguageDialog() {
+        final String[] listItems = {"Español", "French", "日本語", "Tiếng Việt", "中国人", "English"};
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(Settings.this);
+        mBuilder.setTitle(R.string.choose_language);
+        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    //Spanish
+                    setLocale("es");
+                    recreate();
+                }
+                else if (which == 1){
+                    //French
+                    setLocale("fr");
+                    recreate();
+                }
+                else if (which == 2){
+                    //Japanese
+                    setLocale("ja");
+                    recreate();
+                }
+                else if (which == 3){
+                    //Vietnamese
+                    setLocale("vi");
+                    recreate();
+                }
+                else if (which == 4){
+                    //Chinese
+                    setLocale("zh");
+                    recreate();
+                }
+                else if (which == 5){
+                    //English
+                    setLocale("en");
+                    recreate();
+                }
+
+                //Dismiss alert dialog when language is selected
+                dialog.dismiss();
+            }
+        });
+
+        //Show alert dialog
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        //Save data to shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences("language", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
+    }
+
+    public void loadLocale(){
+        SharedPreferences preferences = getSharedPreferences("language", MODE_PRIVATE);
+        String language = preferences.getString("My_lang", "");
+        setLocale(language);
     }
 }

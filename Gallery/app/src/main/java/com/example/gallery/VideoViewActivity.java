@@ -42,16 +42,6 @@ public class VideoViewActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbarVideos);
         setSupportActionBar(mToolbar);
 
-//        mToolbar.setNavigationIcon(R.drawable.ic_back);
-//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(VideoViewActivity.this, MainActivity.class);
-//                finish();
-//                startActivity(intent);
-//            }
-//        });
-
         recyclerView= findViewById(R.id.recyclerview_gallery_videos);
         layoutManager = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
@@ -122,14 +112,19 @@ public class VideoViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.about:
-                Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.setting:
-                Toast.makeText(getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+                Intent intent_setting = new Intent(VideoViewActivity.this, Settings.class);
+                intent_setting.putExtra("CallingActivity", VideoViewActivity.class.toString());
+                finish();
+                startActivity(intent_setting);
                 break;
             case R.id.create_album:
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.change_to_by_date:
+                Intent intent = new Intent(VideoViewActivity.this, VideoByDateActivity.class);
+                finish();
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -137,9 +132,6 @@ public class VideoViewActivity extends AppCompatActivity {
 
     private void fetchVideoFromGallery() throws IOException {
         listOfVideo = VideosGallery.listOfVideos(this);
-        for (int  i= 0; i<listOfVideo.size();i++){
-            System.out.println(listOfVideo.get(i));
-        }
         videoAdapter = new VideoAdapter(this, listOfVideo, VideoViewActivity.this);
         recyclerView.setAdapter(videoAdapter);
 

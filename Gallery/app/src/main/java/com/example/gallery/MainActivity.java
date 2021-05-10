@@ -15,6 +15,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,12 +55,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Language setting
+        sharedPreferences = getSharedPreferences("language", MODE_PRIVATE);
+        String language = sharedPreferences.getString("My_lang", "");
+        setLocale(language);
+
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerview_gallery_images);
         mToolbar = findViewById(R.id.toolbarAlbums);
         setSupportActionBar(mToolbar);
 
+        //Theme setting
         sharedPreferences = getSharedPreferences("theme", 0);
         Boolean booleanValue = sharedPreferences.getBoolean("dark_mode", true);
         if (booleanValue){
@@ -165,11 +174,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.about:
-                Toast.makeText(getApplicationContext(), "About clicked", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.setting:
                 Intent intent_setting = new Intent(MainActivity.this, Settings.class);
+                intent_setting.putExtra("CallingActivity", MainActivity.class.toString());
+                finish();
                 startActivity(intent_setting);
                 break;
             case R.id.change_to_by_date:
@@ -182,6 +190,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
     }
 
     private void loadImages() throws IOException {

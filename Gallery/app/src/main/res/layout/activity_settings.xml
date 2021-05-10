@@ -45,7 +45,7 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_night"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_295sdp"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_bar"
             android:fontFamily="sans-serif-condensed"
@@ -53,10 +53,24 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_18ssp"
             android:padding="@dimen/_10sdp"
-            app:switchPadding="@dimen/_155sdp"
             android:layout_margin="@dimen/_10sdp"
             android:checked="true"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/language_change"
+            android:layout_width="@dimen/_296sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_bar"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/language"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18ssp"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/switch_night"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
