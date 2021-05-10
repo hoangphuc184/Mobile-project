@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -240,6 +241,32 @@ public class FullScreenActivity extends AppCompatActivity {
                     case R.id.copy:
                         Intent choose = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                         startActivityForResult(choose, READ_REQUEST_CODE);
+                        break;
+                    case R.id.share:
+                        File imageFile = new File(path);
+                        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                        Bitmap icon = bitmap;
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("image/jpeg");
+
+                        ContentValues values = new ContentValues();
+                        values.put(MediaStore.Images.Media.TITLE, "title");
+                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                values);
+
+
+                        OutputStream outstream;
+                        try {
+                            outstream = getContentResolver().openOutputStream(uri);
+                            icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                            outstream.close();
+                        } catch (Exception e) {
+                            System.err.println(e.toString());
+                        }
+
+                        share.putExtra(Intent.EXTRA_STREAM, uri);
+                        startActivity(Intent.createChooser(share, "Share Image"));
                         break;
                     case R.id.setWall:
                         File f1 = new File(path);
