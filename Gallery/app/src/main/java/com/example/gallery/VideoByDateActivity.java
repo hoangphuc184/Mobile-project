@@ -1,15 +1,6 @@
 package com.example.gallery;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -18,45 +9,73 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class VideoViewActivity extends AppCompatActivity {
-    ImageButton btnAlbum;
+public class VideoByDateActivity extends AppCompatActivity {
+
+    ImageButton btnPhoto;
     ImageButton btnVideo;
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
-    private Toolbar mToolbar;
+    Toolbar mToolbar;
 
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    ArrayList<VideoModel> listOfVideo;
-    VideoAdapter videoAdapter;
+    ImageButton btnCamera;
+
+    RecyclerView recyclerViewGroup;
+    VideoGroupAdapter groupAdapter;
+    ArrayList<String> arrayListGroup;
+
+    LinearLayoutManager linearLayoutManager;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.video_section);
+        setContentView(R.layout.activity_video_by_date);
 
-        mToolbar = findViewById(R.id.toolbarVideos);
+
+        mToolbar = findViewById(R.id.toolbarAlbums);
         setSupportActionBar(mToolbar);
+        btnCamera = findViewById(R.id.btn_camera);
 
-        recyclerView= findViewById(R.id.recyclerview_gallery_videos);
-        layoutManager = new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(layoutManager);
 
+        recyclerViewGroup = findViewById(R.id.rv_group);
+        arrayListGroup = new ArrayList<>();
         try {
-            fetchVideoFromGallery();
+            arrayListGroup = listOfVideosDate.listOfDateTaken(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        groupAdapter = new VideoGroupAdapter(this, arrayListGroup);
 
-        btnAlbum = (ImageButton)findViewById(R.id.photos_view);
-        btnAlbum.setOnClickListener(new View.OnClickListener() {
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerViewGroup.setLayoutManager(linearLayoutManager);
+
+        recyclerViewGroup.setAdapter(groupAdapter);
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoViewActivity.this, MainActivity.class);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+
+        btnPhoto = (ImageButton)findViewById(R.id.photos_view);
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoByDateActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -66,7 +85,7 @@ public class VideoViewActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoViewActivity.this, VideoViewActivity.class);
+                Intent intent = new Intent(VideoByDateActivity.this, VideoViewActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -76,7 +95,7 @@ public class VideoViewActivity extends AppCompatActivity {
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoViewActivity.this, LocationViewActivity.class);
+                Intent intent = new Intent(VideoByDateActivity.this, LocationViewActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -86,7 +105,7 @@ public class VideoViewActivity extends AppCompatActivity {
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoViewActivity.this, FavoriteViewActivity.class);
+                Intent intent = new Intent(VideoByDateActivity.this, FavoriteViewActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -96,7 +115,7 @@ public class VideoViewActivity extends AppCompatActivity {
         btnSec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoViewActivity.this, SecurityViewActivity.class);
+                Intent intent = new Intent(VideoByDateActivity.this, SecurityViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,7 +132,7 @@ public class VideoViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.setting:
-                Intent intent_setting = new Intent(VideoViewActivity.this, Settings.class);
+                Intent intent_setting = new Intent(VideoByDateActivity.this, Settings.class);
                 intent_setting.putExtra("CallingActivity", VideoViewActivity.class.toString());
                 finish();
                 startActivity(intent_setting);
@@ -122,18 +141,9 @@ public class VideoViewActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.change_to_by_date:
-                Intent intent = new Intent(VideoViewActivity.this, VideoByDateActivity.class);
-                finish();
-                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchVideoFromGallery() throws IOException {
-        listOfVideo = VideosGallery.listOfVideos(this);
-        videoAdapter = new VideoAdapter(this, listOfVideo, VideoViewActivity.this);
-        recyclerView.setAdapter(videoAdapter);
-
-    }
 }
