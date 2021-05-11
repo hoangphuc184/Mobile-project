@@ -2,6 +2,7 @@ package com.example.gallery;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.annotation.TargetApi;
 import android.app.WallpaperManager;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -243,30 +245,31 @@ public class FullScreenActivity extends AppCompatActivity {
                         startActivityForResult(choose, READ_REQUEST_CODE);
                         break;
                     case R.id.share:
-                        File imageFile = new File(path);
-                        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                        Bitmap icon = bitmap;
+//                        File imageFile = new File(path);
+//                        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+//                        Bitmap icon = bitmap;
+//                        Intent share = new Intent(Intent.ACTION_SEND);
+//                        share.setType("image/jpeg");
+//                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//                        icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//                        File f = new File(Environment.getExternalStorageDirectory() + File.separator + "temporary_file.jpg");
+//                        try {
+//                            f.createNewFile();
+//                            FileOutputStream fo = new FileOutputStream(f);
+//                            fo.write(bytes.toByteArray());
+//                            fo.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        System.out.println("GGGGG "+FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", f));
+//                        share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", f));
+//                        startActivity(Intent.createChooser(share, "Share Image"));
+                        File file = new File(path);
+                        Uri uri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", file);
                         Intent share = new Intent(Intent.ACTION_SEND);
-                        share.setType("image/jpeg");
-
-                        ContentValues values = new ContentValues();
-                        values.put(MediaStore.Images.Media.TITLE, "title");
-                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                values);
-
-
-                        OutputStream outstream;
-                        try {
-                            outstream = getContentResolver().openOutputStream(uri);
-                            icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                            outstream.close();
-                        } catch (Exception e) {
-                            System.err.println(e.toString());
-                        }
-
+                        share.setType("image/*");
                         share.putExtra(Intent.EXTRA_STREAM, uri);
-                        startActivity(Intent.createChooser(share, "Share Image"));
+                        startActivity(share);
                         break;
                     case R.id.setWall:
                         File f1 = new File(path);
