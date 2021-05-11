@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ImagesGallery {
-
     public static ArrayList<String> listOfImages(Context context) throws IOException {
         Uri uri;
         Cursor cursor;

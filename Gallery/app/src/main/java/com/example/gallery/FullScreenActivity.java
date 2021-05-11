@@ -24,12 +24,17 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -352,6 +357,7 @@ public class FullScreenActivity extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             ExifInterface ei = null;
+
             try {
                 ei = new ExifInterface(imgFile.getPath());
             } catch (IOException e) {

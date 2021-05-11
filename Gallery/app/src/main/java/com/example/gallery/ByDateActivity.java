@@ -132,7 +132,7 @@ public class ByDateActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.setting, menu);
+        getMenuInflater().inflate(R.menu.setting_for_image_only, menu);
         return true;
     }
 
@@ -146,6 +146,11 @@ public class ByDateActivity extends AppCompatActivity {
                 startActivity(intent_setting);
                 break;
             case R.id.change_to_by_date:
+                break;
+            case R.id.change_to_by_people:
+                Intent intent_people = new Intent(ByDateActivity.this, ByPeopleActivity.class);
+                finish();
+                startActivity(intent_people);
                 break;
             case R.id.create_album:
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
