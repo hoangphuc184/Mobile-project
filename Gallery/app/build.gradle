@@ -47,6 +47,5 @@ dependencies {
 
     // Rounded ImageView
     implementation "com.makeramen:roundedimageview:2.3.0"
-
-    //Image Slide Show
+    implementation "com.google.android.gms:play-services-vision:9.8.0"
 }
