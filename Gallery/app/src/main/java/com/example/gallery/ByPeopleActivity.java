@@ -17,7 +17,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -33,7 +32,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class ByPeopleActivity extends AppCompatActivity {
 
     ImageButton btnPhoto;
     ImageButton btnVideo;
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     GalleryAdapter galleryAdapter;
     List<String> images;
 
+
     private static final int MY_PERMISSION_CODE = 101;
 
     @Override
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         String language = sharedPreferences.getString("My_lang", "");
         setLocale(language);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_by_people);
 
         recyclerView = findViewById(R.id.recyclerview_gallery_images);
         mToolbar = findViewById(R.id.toolbarAlbums);
@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this,
+        if(ContextCompat.checkSelfPermission(ByPeopleActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,
+            ActivityCompat.requestPermissions(ByPeopleActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.CAMERA
@@ -102,14 +102,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-//        if(ContextCompat.checkSelfPermission(MainActivity.this,
+//        if(ContextCompat.checkSelfPermission(ByPeopleActivity.this,
 //                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this,
+//            ActivityCompat.requestPermissions(ByPeopleActivity.this,
 //                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_WRITE_PERMISSION_CODE);
 //        }
 //
-//        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+//        if(ContextCompat.checkSelfPermission(ByPeopleActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(ByPeopleActivity.this, new String[]{
 //                    Manifest.permission.CAMERA
 //            }, 100);
 //        }
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                Intent intent = new Intent(ByPeopleActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, VideoViewActivity.class);
+                Intent intent = new Intent(ByPeopleActivity.this, VideoViewActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LocationViewActivity.class);
+                Intent intent = new Intent(ByPeopleActivity.this, LocationViewActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FavoriteViewActivity.class);
+                Intent intent = new Intent(ByPeopleActivity.this, FavoriteViewActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -158,13 +158,12 @@ public class MainActivity extends AppCompatActivity {
         btnSec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SecurityViewActivity.class);
+                Intent intent = new Intent(ByPeopleActivity.this, SecurityViewActivity.class);
                 startActivity(intent);
             }
         });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,20 +175,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.setting:
-                Intent intent_setting = new Intent(MainActivity.this, Settings.class);
-                intent_setting.putExtra("CallingActivity", MainActivity.class.toString());
+                Intent intent_setting = new Intent(ByPeopleActivity.this, Settings.class);
+                intent_setting.putExtra("CallingActivity", ByPeopleActivity.class.toString());
                 finish();
                 startActivity(intent_setting);
                 break;
             case R.id.change_to_by_date:
-                Intent intent = new Intent(MainActivity.this, ByDateActivity.class);
+                Intent intent = new Intent(ByPeopleActivity.this, ByDateActivity.class);
                 finish();
                 startActivity(intent);
                 break;
             case R.id.change_to_by_people:
-                Intent intent_people = new Intent(MainActivity.this, ByPeopleActivity.class);
-                finish();
-                startActivity(intent_people);
                 break;
             case R.id.create_album:
                 Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
@@ -209,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
     private void loadImages() throws IOException {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        images = ImagesGallery.listOfImages(this);
+        PeopleImage.handleFaceDetection(this);
+        images = PeopleImage.listOfPeopleImages();
         galleryAdapter = new GalleryAdapter(this, images, new GalleryAdapter.PhotoListener() {
             @Override
             public void onPhotoClick(String path) {
@@ -237,5 +234,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-}
+    }
 }
