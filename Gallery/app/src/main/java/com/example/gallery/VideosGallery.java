@@ -3,6 +3,7 @@ package com.example.gallery;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 
 import java.io.IOException;

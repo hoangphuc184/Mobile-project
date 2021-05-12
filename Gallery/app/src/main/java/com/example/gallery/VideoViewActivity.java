@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,7 +28,10 @@ public class VideoViewActivity extends AppCompatActivity {
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
+    ImageButton btnrecordVideo;
     private Toolbar mToolbar;
+    private static int VIDEO_REQUEST = 101;
+    private Uri videoUri = null;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -59,6 +63,14 @@ public class VideoViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(VideoViewActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
+            }
+        });
+
+        btnrecordVideo = (ImageButton)findViewById(R.id.btn_record_video);
+        btnrecordVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent
             }
         });
 
@@ -101,6 +113,21 @@ public class VideoViewActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void captureVideo(View view){
+        Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if(videoIntent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(videoIntent,VIDEO_REQUEST);
+        }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == VIDEO_REQUEST && resultCode==RESULT_OK){
+            videoUri = data.getData();
+        }
     }
 
     @Override

@@ -24,7 +24,7 @@ import android.widget.VideoView;
 import java.io.File;
 import java.io.IOException;
 
-public class VideoPlayActivity extends AppCompatActivity {
+public class    VideoPlayActivity extends AppCompatActivity {
 
     String str_video;
     VideoView vv_video;
