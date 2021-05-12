@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
     List<String> images;
-
 
     private static final int MY_PERMISSION_CODE = 101;
 
@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -205,7 +205,8 @@ public class ByPeopleActivity extends AppCompatActivity {
     private void loadImages() throws IOException {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        images = PeopleImage.listOfPeopleImages(this);
+        PeopleImage.handleFaceDetection(this);
+        images = PeopleImage.listOfPeopleImages();
         galleryAdapter = new GalleryAdapter(this, images, new GalleryAdapter.PhotoListener() {
             @Override
             public void onPhotoClick(String path) {
