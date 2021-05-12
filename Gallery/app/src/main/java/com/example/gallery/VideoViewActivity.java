@@ -1,7 +1,9 @@
 package com.example.gallery;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,7 +73,11 @@ public class VideoViewActivity extends AppCompatActivity {
         btnrecordVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent
+                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+                startActivityForResult(intent,1);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -124,9 +131,13 @@ public class VideoViewActivity extends AppCompatActivity {
 
     @SuppressLint("MissingSuperCall")
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == VIDEO_REQUEST && resultCode==RESULT_OK){
-            videoUri = data.getData();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        if(requestCode == RESULT_OK && resultCode == 1){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            VideoView videoView = new VideoView(this);
+            videoView.setVideoURI(data.getData());
+            videoView.start();
+            builder.setView(videoView).show();
         }
     }
 
