@@ -30,18 +30,20 @@ public class Settings extends AppCompatActivity {
     SwitchCompat switchCompat;
     SharedPreferences sharedPreferences = null;
     TextView change_lang;
+    final String[] list_lang = {"en", "vi", "es", "fr", "ja", "zh"};
+    String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Load language
         loadLocale();
+
         setContentView(R.layout.activity_settings);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbarSettings);
         setSupportActionBar(mToolbar);
-//        mActionbar = getSupportActionBar();
-//        mActionbar.setHomeAsUpIndicator(R.drawable.ic_back);
-//        mActionbar.setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,41 +127,46 @@ public class Settings extends AppCompatActivity {
     }
 
     private void showChangeLanguageDialog() {
-        final String[] listItems = {"Español", "French", "日本語", "Tiếng Việt", "中国人", "English"};
+        final String[] listItems = {"English", "Tiếng Việt", "Español", "French", "日本語", "中国人"};
+        int j = 0;
+        for (int i = 0; i < list_lang.length; i++){
+            if (list_lang[i].equals(language))
+                j = i;
+        }
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(Settings.this);
         mBuilder.setTitle(R.string.choose_language);
-        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+        mBuilder.setSingleChoiceItems(listItems, j, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0){
                     //Spanish
-                    setLocale("es");
+                    setLocale("en");
                     recreate();
                 }
                 else if (which == 1){
                     //French
-                    setLocale("fr");
+                    setLocale("vi");
                     recreate();
                 }
                 else if (which == 2){
                     //Japanese
-                    setLocale("ja");
+                    setLocale("es");
                     recreate();
                 }
                 else if (which == 3){
                     //Vietnamese
-                    setLocale("vi");
+                    setLocale("fr");
                     recreate();
                 }
                 else if (which == 4){
                     //Chinese
-                    setLocale("zh");
+                    setLocale("ja");
                     recreate();
                 }
                 else if (which == 5){
                     //English
-                    setLocale("en");
+                    setLocale("zh");
                     recreate();
                 }
 
@@ -188,7 +195,7 @@ public class Settings extends AppCompatActivity {
 
     public void loadLocale(){
         SharedPreferences preferences = getSharedPreferences("language", MODE_PRIVATE);
-        String language = preferences.getString("My_lang", "");
+        language = preferences.getString("My_lang", "");
         setLocale(language);
     }
 }
