@@ -21,8 +21,8 @@ public class PeopleImage {
         Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
         FaceDetector faceDetector = new FaceDetector.Builder(context)
                 .setTrackingEnabled(false)
-                .setLandmarkType(FaceDetector.ALL_LANDMARKS)
-                .setMode(FaceDetector.FAST_MODE)
+                .setLandmarkType(FaceDetector.NO_LANDMARKS)
+                .setMode(FaceDetector.ACCURATE_MODE)
                 .setClassificationType(FaceDetector.NO_CLASSIFICATIONS)
                 .build();
         if (!faceDetector.isOperational()){

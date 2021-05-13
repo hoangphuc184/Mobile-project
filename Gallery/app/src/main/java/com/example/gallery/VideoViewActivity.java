@@ -156,9 +156,7 @@ public class VideoViewActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent_setting);
                 break;
-            case R.id.create_album:
-                Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
-                break;
+
             case R.id.change_to_by_date:
                 Intent intent = new Intent(VideoViewActivity.this, VideoByDateActivity.class);
                 finish();

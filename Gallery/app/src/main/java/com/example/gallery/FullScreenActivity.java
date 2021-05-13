@@ -11,6 +11,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -50,11 +52,16 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 
-public class FullScreenActivity extends AppCompatActivity {
+public class FullScreenActivity extends AppCompatActivity implements TagPop.ExampleDialogListener {
     ImageButton btnMore;
     ImageButton btnBack;
     String path;
     String desPath;
+    String tagLocation;
+    SharedPreferences sharedPreferences ;
+    SharedPreferences.Editor editor;
+
+
     final int READ_REQUEST_CODE = 42;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -259,10 +266,20 @@ public class FullScreenActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.delete:
                         deleteImage(path);
-                        Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
+                        Intent intent = new Intent(FullScreenActivity.this, LocationViewActivity.class);
                         finish();
                         startActivity(intent);
                         break;
+
+                    case R.id.tag:
+                        openDialog();
+//
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString(path, "teamvietdev.com");
+//                        editor.commit();
+
+                        break;
+
                     case R.id.edit:
                         Intent edit = new Intent(FullScreenActivity.this, DsPhotoEditorActivity.class);
                         edit.setData(Uri.fromFile(new File(path)));
@@ -332,6 +349,11 @@ public class FullScreenActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.details:
+                        try {
+                            listOfImageByLoc.listOfImageByLocation(getApplicationContext(), "LONG AN");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         Intent intent2 = new Intent(FullScreenActivity.this, DetailsScreen.class);
                         finish();
                         intent2.putExtra("path", path);
@@ -343,6 +365,12 @@ public class FullScreenActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
+    private void openDialog() {
+        TagPop tagPop = new TagPop();
+        tagPop.show(getSupportFragmentManager(), "Example");
+    }
+
     private void deleteImage(String path) {
         File file = new File(path);
 
@@ -428,6 +456,20 @@ public class FullScreenActivity extends AppCompatActivity {
 
             myImage.setImageBitmap(rotatedBitmap);
 
+        }
+    }
+
+    @Override
+    public void applyTexts(String loc) {
+        if (!loc.equals("")){
+            loc = loc.toUpperCase();
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            editor = sharedPreferences.edit();
+
+            editor.putString(path, loc);
+            //editor.clear();
+            editor.commit();
+            Toast.makeText(this, "Location set", Toast.LENGTH_SHORT).show();
         }
     }
 }
