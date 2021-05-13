@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
@@ -32,6 +33,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
@@ -221,16 +224,31 @@ public class FullScreenActivity extends AppCompatActivity {
 
     }
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Uri uri = data.getData();
-        Uri docUri = DocumentsContract.buildDocumentUriUsingTree(uri,
-                DocumentsContract.getTreeDocumentId(uri));
-        desPath = getPath(this, docUri);
-        File f = new File(path);
-        copyFile(path, f.getName(), desPath);
+        switch (requestCode){
+
+            case READ_REQUEST_CODE:
+                Uri docUri = DocumentsContract.buildDocumentUriUsingTree(uri,
+                        DocumentsContract.getTreeDocumentId(uri));
+                desPath = getPath(this, docUri);
+
+                File f = new File(path);
+                copyFile(path, f.getName(), desPath);
+                break;
+            case 101:
+                ImageView myImage = (ImageView) findViewById(R.id.full_screen);
+                myImage.setImageURI(uri);
+                break;
+        }
+
     }
+
 
     private void showMenu(){
         PopupMenu popupMenu = new PopupMenu(this, btnMore);
@@ -244,6 +262,29 @@ public class FullScreenActivity extends AppCompatActivity {
                         Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
                         finish();
                         startActivity(intent);
+                        break;
+                    case R.id.edit:
+                        Intent edit = new Intent(FullScreenActivity.this, DsPhotoEditorActivity.class);
+                        edit.setData(Uri.fromFile(new File(path)));
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY, "Photo Edited");
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_TOOL_BAR_BACKGROUND_COLOR, Color.parseColor("#FF6200EE"));
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_MAIN_BACKGROUND_COLOR, Color.parseColor("#FFFFFF"));
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE,
+                                new int[]{DsPhotoEditorActivity.TOOL_WARMTH,
+                                        DsPhotoEditorActivity.TOOL_PIXELATE,
+                                        DsPhotoEditorActivity.TOOL_FRAME,
+                                        DsPhotoEditorActivity.TOOL_ROUND,
+                                        DsPhotoEditorActivity.TOOL_VIGNETTE,
+                                        DsPhotoEditorActivity.TOOL_SHARPNESS,
+                                });
+                        startActivityForResult(edit, 101);
+
+                        //System.out.println(Environment.getExternalStorageDirectory() + File.separator + "Pictures" + File.separator + "DS_Photo_Editor");
+
                         break;
                     case R.id.copy:
                         Intent choose = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
@@ -302,7 +343,6 @@ public class FullScreenActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
-
     private void deleteImage(String path) {
         File file = new File(path);
 
@@ -384,7 +424,7 @@ public class FullScreenActivity extends AppCompatActivity {
                 default:
                     rotatedBitmap = bitmap;
             }
-            ImageView myImage = (ImageView) findViewById(R.id.full_screen);
+            ImageView myImage = findViewById(R.id.full_screen);
 
             myImage.setImageBitmap(rotatedBitmap);
 

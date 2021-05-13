@@ -6,11 +6,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-feature android:name="android.hardware.camera2"
-        android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Gallery"
@@ -19,14 +23,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gallery">
-        <activity android:name=".ByPeopleActivity"></activity>
+        <activity android:name=".ByPeopleActivity" />
         <activity android:name=".VideoByDateActivity" />
         <activity android:name=".DetailsScreen" />
         <activity android:name=".VideoDetailsScreen" />
         <activity android:name=".ByDateActivity" />
         <activity
             android:name=".Settings"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +55,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorStickerActivity"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorTextActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorCropActivity"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorDrawActivity"/>
     </application>
 
 </manifest>
