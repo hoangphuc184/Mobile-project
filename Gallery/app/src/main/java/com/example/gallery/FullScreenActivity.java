@@ -55,6 +55,8 @@ import java.text.SimpleDateFormat;
 public class FullScreenActivity extends AppCompatActivity implements TagPop.ExampleDialogListener {
     ImageButton btnMore;
     ImageButton btnBack;
+    ImageButton btnFav;
+
     String path;
     String desPath;
     String tagLocation;
@@ -417,7 +419,65 @@ public class FullScreenActivity extends AppCompatActivity implements TagPop.Exam
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                String activityName = i.getExtras().getString("PreviousActivity");
+                System.out.println(activityName);
+
+                if (activityName.equals(MainActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(ByDateActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, ByDateActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(FavoriteViewActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, FavoriteViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(LocationViewActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, LocationViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(LoggedSecurityViewActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, LoggedSecurityViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+            }
+        });
+
+        btnFav = findViewById(R.id.btnFavorite);
+        sharedPreferences = getSharedPreferences("State", 0);
+        Boolean stateImage = sharedPreferences.getBoolean(path, false);
+        System.out.println(stateImage);
+        if (stateImage){
+            btnFav.setImageResource(R.drawable.ic_fav_yes);
+        }
+        else{
+            btnFav.setImageResource(R.drawable.ic_fav_no);
+        }
+        btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnFav.setSelected(!btnFav.isSelected());
+
+                if (btnFav.isSelected()) {
+                    btnFav.setImageResource(R.drawable.ic_fav_yes);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(path, true);
+                    editor.apply();
+                    System.out.println("Selected");
+                } else {
+                    btnFav.setImageResource(R.drawable.ic_fav_no);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(path, false);
+                    editor.apply();
+                    System.out.println("Not selected");
+                }
             }
         });
 

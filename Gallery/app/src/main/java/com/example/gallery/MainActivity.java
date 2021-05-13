@@ -257,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPhotoClick(String path) {
                 Intent intent = new Intent(getApplicationContext(), FullScreenActivity.class);
                 intent.putExtra("path", path);
+                intent.putExtra("PreviousActivity", MainActivity.class.toString());
                 startActivity(intent);
             }
         });
