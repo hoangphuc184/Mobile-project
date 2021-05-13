@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
+    ImageButton btnVideo;
+
     Toolbar mToolbar;
     ImageButton btnCamera;
     SharedPreferences sharedPreferences = null;
@@ -103,9 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-<<<<<<< HEAD
-        
-=======
 
         if(ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -121,19 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
->>>>>>> 7b29e62fee1b2bee6e6e42682766b1ef88d47399
-//        if(ContextCompat.checkSelfPermission(MainActivity.this,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_WRITE_PERMISSION_CODE);
-//        }
-//
-//        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-//                    Manifest.permission.CAMERA
-//            }, 100);
-//        }
 
         btnVideo = (ImageButton)findViewById(R.id.videos_view);
         btnVideo.setOnClickListener(new View.OnClickListener() {
