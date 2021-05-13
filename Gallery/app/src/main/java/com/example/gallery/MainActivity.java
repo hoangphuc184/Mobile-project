@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,22 +50,21 @@ import java.util.SimpleTimeZone;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton btnPhoto;
-    ImageButton btnVideo;
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
     Toolbar mToolbar;
-
     ImageButton btnCamera;
     SharedPreferences sharedPreferences = null;
 
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
     List<String> images;
-
+    String currentPhotoPath;
+    private ImageView imageView;
     private static final int MY_PERMISSION_CODE = 101;
     private static final int CAMERA_REQUEST = 1;
-    String currentImagePath = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,38 +95,14 @@ public class MainActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(cameraIntent.resolveActivity(getPackageManager())!=null){
-                    File imageFile = null;
-                    try {
-                        imageFile = getImageFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if(imageFile!=null){
-                        Uri imageUri = FileProvider.getUriForFile(MainActivity.this, "${applicationId}.provider", imageFile);
-                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                    }
-                }
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+                startActivityForResult(intent,1);
+                finish();
+                startActivity(intent);
             }
         });
-
-        if(ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA
-                    }, MY_PERMISSION_CODE);
-        } else {
-            try {
-                loadImages();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        
 //        if(ContextCompat.checkSelfPermission(MainActivity.this,
 //                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 //            ActivityCompat.requestPermissions(MainActivity.this,
@@ -252,18 +228,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void displayImage(View view){
-        Intent intent = new Intent(this, DisplayImage.class);
-        intent.putExtra("provider_paths", currentImagePath);
-        startActivity(intent);
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePictureIntent.resolveActivity(getPackageManager())!=null){
+            File photoFile = null;
+            try {
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (photoFile != null){
+                Uri photoUri = FileProvider.getUriForFile(this,"com.example.gallery", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+            }
+        }
     }
 
-    private File getImageFile() throws IOException {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap image = (Bitmap)extras.get("data");
+            imageView.setImageBitmap(image);
+        }
+    }
+
+    private File createImageFile() throws IOException{
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageName = "jpg_"+timeStamp+"_";
+        String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File imageFile = File.createTempFile(imageName,".jpg", storageDir);
-        currentImagePath = imageFile.getAbsolutePath();
-        return imageFile;
+        File image = File.createTempFile(
+                imageFileName, ".jpg", storageDir
+        );
+
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 }
