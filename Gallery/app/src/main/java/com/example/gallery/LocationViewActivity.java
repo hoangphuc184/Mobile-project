@@ -3,33 +3,75 @@ package com.example.gallery;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class LocationViewActivity extends AppCompatActivity {
-    ImageButton btnAlbum;
+    ImageButton btnPhoto;
     ImageButton btnVideo;
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
     Toolbar mToolbar;
 
+    ImageButton btnCamera;
+
+    RecyclerView recyclerViewGroup;
+    ImageByLocGroupAdapter groupAdapter;
+    ArrayList<String> arrayListGroup;
+
+    LinearLayoutManager linearLayoutManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_section);
 
-        mToolbar = findViewById(R.id.toolbarLocations);
-        setSupportActionBar(mToolbar);
 
-        btnAlbum = (ImageButton)findViewById(R.id.photos_view);
-        btnAlbum.setOnClickListener(new View.OnClickListener() {
+        mToolbar = findViewById(R.id.toolbarAlbums);
+        setSupportActionBar(mToolbar);
+        btnCamera = findViewById(R.id.btn_camera);
+
+
+        recyclerViewGroup = findViewById(R.id.recyclerview_gallery_locations);
+        arrayListGroup = new ArrayList<>();
+        try {
+            arrayListGroup = ListOfLocationTag.listOfLocation(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        groupAdapter = new ImageByLocGroupAdapter(arrayListGroup, this);
+
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerViewGroup.setLayoutManager(linearLayoutManager);
+
+        recyclerViewGroup.setAdapter(groupAdapter);
+//
+//        btnCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                finish();
+//                startActivity(intent);
+//            }
+//        });
+
+
+        btnPhoto = (ImageButton)findViewById(R.id.photos_view);
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationViewActivity.this, MainActivity.class);
@@ -81,7 +123,7 @@ public class LocationViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.setting, menu);
+        getMenuInflater().inflate(R.menu.setting_for_image_only, menu);
         return true;
     }
 
@@ -94,10 +136,19 @@ public class LocationViewActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent_setting);
                 break;
-            case R.id.create_album:
-                Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
+            case R.id.change_to_by_date:
+                Intent intent = new Intent(LocationViewActivity.this, ByDateActivity.class);
+                finish();
+                startActivity(intent);
                 break;
+            case R.id.change_to_by_people:
+                Intent intent_people = new Intent(LocationViewActivity.this, ByPeopleActivity.class);
+                finish();
+                startActivity(intent_people);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

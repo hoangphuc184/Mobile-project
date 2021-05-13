@@ -1,11 +1,7 @@
 package com.example.gallery;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ExifInterface;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.SparseArray;
 
 import com.google.android.gms.vision.Frame;
@@ -15,7 +11,6 @@ import com.google.android.gms.vision.face.FaceDetector;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class PeopleImage {
@@ -26,8 +21,8 @@ public class PeopleImage {
         Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
         FaceDetector faceDetector = new FaceDetector.Builder(context)
                 .setTrackingEnabled(false)
-                .setLandmarkType(FaceDetector.ALL_LANDMARKS)
-                .setMode(FaceDetector.FAST_MODE)
+                .setLandmarkType(FaceDetector.NO_LANDMARKS)
+                .setMode(FaceDetector.ACCURATE_MODE)
                 .setClassificationType(FaceDetector.NO_CLASSIFICATIONS)
                 .build();
         if (!faceDetector.isOperational()){

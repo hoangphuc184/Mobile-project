@@ -137,9 +137,7 @@ public class VideoByDateActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent_setting);
                 break;
-            case R.id.create_album:
-                Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
-                break;
+
             case R.id.change_to_by_date:
                 break;
         }

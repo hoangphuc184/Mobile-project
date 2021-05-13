@@ -206,9 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent_people);
                 break;
-            case R.id.create_album:
-                Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
-                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

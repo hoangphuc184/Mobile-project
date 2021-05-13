@@ -87,20 +87,6 @@ public class ByPeopleActivity extends AppCompatActivity {
             }
         });
 
-        if(ContextCompat.checkSelfPermission(ByPeopleActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(ByPeopleActivity.this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA
-                    }, MY_PERMISSION_CODE);
-        } else {
-            try {
-                loadImages();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
 //        if(ContextCompat.checkSelfPermission(ByPeopleActivity.this,
 //                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -187,9 +173,7 @@ public class ByPeopleActivity extends AppCompatActivity {
                 break;
             case R.id.change_to_by_people:
                 break;
-            case R.id.create_album:
-                Toast.makeText(getApplicationContext(), "Create album clicked", Toast.LENGTH_SHORT).show();
-                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

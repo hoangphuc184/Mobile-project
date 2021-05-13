@@ -10,6 +10,8 @@
         android:title="Share"/>
     <item android:id="@+id/edit"
         android:title="Edit image"/>
+    <item android:id="@+id/tag"
+        android:title="Tag location"/>
     <item android:id="@+id/details"
         android:title="@string/details"/>
 </menu>
