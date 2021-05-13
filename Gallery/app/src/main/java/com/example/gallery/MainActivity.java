@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     }, MY_PERMISSION_CODE);
         } else {
             try {
-                loadImages();
+                loadImages(1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,6 +139,16 @@ public class MainActivity extends AppCompatActivity {
 //                    Manifest.permission.CAMERA
 //            }, 100);
 //        }
+
+        btnVideo = (ImageButton)findViewById(R.id.videos_view);
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, VideoViewActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
 
         btnPhoto = (ImageButton)findViewById(R.id.photos_view);
         btnPhoto.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +217,20 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent_people);
                 break;
-
+            case R.id.change_grid_layout:
+                try {
+                    loadImages(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.change_linear_layout:
+                try {
+                    loadImages(2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -219,9 +243,14 @@ public class MainActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
     }
 
-    private void loadImages() throws IOException {
+    private void loadImages(int opt) throws IOException {
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        if (opt == 1) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        }
+        else if (opt == 2){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        }
         images = ImagesGallery.listOfImages(this);
         galleryAdapter = new GalleryAdapter(this, images, new GalleryAdapter.PhotoListener() {
             @Override
@@ -242,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             case MY_PERMISSION_CODE:{
                 Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
                 try {
-                    loadImages();
+                    loadImages(1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
