@@ -6,8 +6,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-feature android:name="android.hardware.camera2"
-        android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -19,14 +22,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gallery">
-        <activity android:name=".ByPeopleActivity"></activity>
+        <activity android:name=".DisplayImage"></activity>
+        <activity android:name=".ByPeopleActivity" />
         <activity android:name=".VideoByDateActivity" />
         <activity android:name=".DetailsScreen" />
         <activity android:name=".VideoDetailsScreen" />
         <activity android:name=".ByDateActivity" />
         <activity
             android:name=".Settings"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
