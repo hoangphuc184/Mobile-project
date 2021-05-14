@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Galería</string>
+    <string name="albums">Álbum</string>
+    <string name="videos">Video</string>
+    <string name="favorites">Favorito</string>
+    <string name="locations">Localización</string>
+    <string name="secure_folder">Carpeta segura</string>
+    <string name="settings">Ajustes</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="details">Detalles</string>
+    <string name="input_your_password">Ingrese su contraseña</string>
+    <string name="log_in">Iniciar sesión</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="language">Idioma</string>
+    <string name="choose_language">Elige lengua</string>
+    <string name="delete_pic">Borrar</string>
+    <string name="set_as_wallpaper">Establecer como fondo de pantalla</string>
+    <string name="create_album">Crear albúm</string>
+    <string name="view_by_date">Ver por fecha</string>
+</resources>
