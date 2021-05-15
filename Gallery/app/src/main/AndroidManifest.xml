@@ -15,7 +15,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_app_2"
         android:label="Gallery"
         android:largeHeap="true"
         android:noHistory="true"
@@ -23,7 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gallery">
-        <activity android:name=".Slide"></activity>
+        <activity android:name=".Slide" />
         <activity android:name=".ByPeopleActivity" />
         <activity android:name=".VideoByDateActivity" />
         <activity android:name=".DetailsScreen" />
@@ -57,13 +57,47 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity" />
-        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorStickerActivity" />
         <activity
+
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity"
+
+            android:screenOrientation="portrait"
+
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
+        <activity
+
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorStickerActivity"
+
+            android:screenOrientation="portrait"
+
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
+        <activity
+
             android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorTextActivity"
+
+            android:screenOrientation="portrait"
+
+            android:theme="@android:style/Theme.Holo.NoActionBar"
+
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorCropActivity" />
-        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorDrawActivity" />
+
+        <activity
+
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorCropActivity"
+
+            android:screenOrientation="portrait"
+
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
+        <activity
+
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorDrawActivity"
+
+            android:screenOrientation="portrait"
+
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
     </application>
 
 </manifest>

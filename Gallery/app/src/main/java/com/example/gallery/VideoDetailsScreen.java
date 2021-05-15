@@ -61,6 +61,7 @@ public class VideoDetailsScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(VideoDetailsScreen.this, VideoPlayActivity.class);
+                intent2.putExtra("Video", path);
                 finish();
                 startActivity(intent2);
             }

@@ -39,6 +39,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, FullScreenActivity.class);
                 intent.putExtra("path", image);
+                intent.putExtra("PreviousActivity", context.getClass().toString());
                 context.startActivity(intent);
             }
         });

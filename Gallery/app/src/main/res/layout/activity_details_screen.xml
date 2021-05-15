@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsScreen"
-    android:background="@color/black">
+    tools:context=".DetailsScreen">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -13,25 +12,25 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@color/black"
         android:src="@drawable/ic_back"
+        android:background="@android:color/transparent"
         tools:ignore="MissingConstraints"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"/>
+
     <TextView
         android:id="@+id/details_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Details"
-        android:textColor="@color/white"
+        android:text="@string/details"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         android:layout_marginLeft="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_17sdp"
-        tools:ignore="MissingConstraints" ></TextView>
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/cale"
@@ -42,19 +41,18 @@
         android:src="@drawable/ic_calendar"
         app:layout_constraintTop_toBottomOf="@+id/btnBack"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"></ImageView>
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/create_date"
         android:text="dddd"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/cale"
         app:layout_constraintTop_toBottomOf="@id/btnBack"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_23sdp"
-        tools:ignore="MissingConstraints"></TextView>
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/pic"
@@ -64,13 +62,11 @@
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/cale"
         app:layout_constraintStart_toStartOf="@id/cale"
-        android:layout_marginTop="@dimen/_25sdp"
-        ></ImageView>
+        android:layout_marginTop="@dimen/_25sdp" />
 
     <TextView
         android:id="@+id/file_name_tv"
         android:text="ddddddddd"
-        android:textColor="@color/white"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
@@ -78,32 +74,28 @@
         android:layout_marginTop="@dimen/_27sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:inputType="textMultiLine"
-        app:layout_constraintStart_toEndOf="@id/pic"></TextView>
+        app:layout_constraintStart_toEndOf="@id/pic" />
 
     <TextView
         android:id="@+id/path_file_tv"
         android:layout_width="@dimen/_200sdp"
-        android:textColor="@color/white"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         android:text="dddddd"
         android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@+id/file_name_tv"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="@id/file_name_tv"
-        ></TextView>
+        app:layout_constraintStart_toStartOf="@id/file_name_tv" />
 
     <TextView
         android:id="@+id/size"
         android:text="zzzzzzz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/path_file_tv"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="@id/file_name_tv"></TextView>
-
+        app:layout_constraintStart_toStartOf="@id/file_name_tv" />
 
 
     <TextView
@@ -111,10 +103,9 @@
         android:text="sdsdsds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/path_file_tv"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_100sdp"
-        app:layout_constraintStart_toEndOf="@id/size"></TextView>
+        app:layout_constraintStart_toEndOf="@id/size" />
 </androidx.constraintlayout.widget.ConstraintLayout>

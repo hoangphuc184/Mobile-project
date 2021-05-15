@@ -38,21 +38,22 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton btnPhoto;
-    ImageButton btnVideo;
     ImageButton btnLoc;
     ImageButton btnFav;
     ImageButton btnSec;
+    ImageButton btnVideo;
+
     Toolbar mToolbar;
-
     ImageButton btnCamera;
-
     SharedPreferences sharedPreferences = null;
 
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
     List<String> images;
-
+    String currentPhotoPath;
+    private ImageView imageView;
     private static final int MY_PERMISSION_CODE = 101;
+    private static final int CAMERA_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,18 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-//        if(ContextCompat.checkSelfPermission(MainActivity.this,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_WRITE_PERMISSION_CODE);
-//        }
-//
-//        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-//                    Manifest.permission.CAMERA
-//            }, 100);
-//        }
 
         btnPhoto = (ImageButton)findViewById(R.id.photos_view);
         btnPhoto.setOnClickListener(new View.OnClickListener() {
@@ -247,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPhotoClick(String path) {
                 Intent intent = new Intent(getApplicationContext(), FullScreenActivity.class);
                 intent.putExtra("path", path);
+                intent.putExtra("PreviousActivity", MainActivity.class.toString());
                 startActivity(intent);
             }
         });

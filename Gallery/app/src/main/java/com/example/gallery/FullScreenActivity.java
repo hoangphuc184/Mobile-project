@@ -1,7 +1,10 @@
 package com.example.gallery;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import android.annotation.TargetApi;
@@ -28,6 +31,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -40,6 +44,9 @@ import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -53,11 +60,12 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 
 public class FullScreenActivity extends AppCompatActivity implements TagPop.ExampleDialogListener {
-    ImageButton btnMore;
-    ImageButton btnBack;
+    Toolbar toolbar;
+    BottomNavigationView bottomAppBar;
+
     String path;
     String desPath;
-    String tagLocation;
+
     SharedPreferences sharedPreferences ;
     SharedPreferences.Editor editor;
 
@@ -205,7 +213,6 @@ public class FullScreenActivity extends AppCompatActivity implements TagPop.Exam
             {
                 dir.mkdirs();
             }
-
             in = new FileInputStream(inputPath);
             out = new FileOutputStream(outputPath +"/" + inputFile);
 
@@ -216,19 +223,16 @@ public class FullScreenActivity extends AppCompatActivity implements TagPop.Exam
             }
             in.close();
             in = null;
-
             // write the output file (You have now copied the file)
             out.flush();
             out.close();
             out = null;
-
         }  catch (FileNotFoundException fnfe1) {
             Log.e("tag", fnfe1.getMessage());
         }
         catch (Exception e) {
             Log.e("tag", e.getMessage());
         }
-
     }
 
 
@@ -256,113 +260,6 @@ public class FullScreenActivity extends AppCompatActivity implements TagPop.Exam
 
     }
 
-
-    private void showMenu(){
-        PopupMenu popupMenu = new PopupMenu(this, btnMore);
-        popupMenu.getMenuInflater().inflate(R.menu.setting_img_view, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.delete:
-                        deleteImage(path);
-                        finish();
-                        break;
-
-                    case R.id.tag:
-                        openDialog();
-//
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putString(path, "teamvietdev.com");
-//                        editor.commit();
-
-                        break;
-
-                    case R.id.edit:
-                        Intent edit = new Intent(FullScreenActivity.this, DsPhotoEditorActivity.class);
-                        edit.setData(Uri.fromFile(new File(path)));
-
-                        edit.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY, "Photo Edited");
-
-                        edit.putExtra(DsPhotoEditorConstants.DS_TOOL_BAR_BACKGROUND_COLOR, Color.parseColor("#FF6200EE"));
-
-                        edit.putExtra(DsPhotoEditorConstants.DS_MAIN_BACKGROUND_COLOR, Color.parseColor("#FFFFFF"));
-
-                        edit.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE,
-                                new int[]{DsPhotoEditorActivity.TOOL_WARMTH,
-                                        DsPhotoEditorActivity.TOOL_PIXELATE,
-                                        DsPhotoEditorActivity.TOOL_FRAME,
-                                        DsPhotoEditorActivity.TOOL_ROUND,
-                                        DsPhotoEditorActivity.TOOL_VIGNETTE,
-                                        DsPhotoEditorActivity.TOOL_SHARPNESS,
-                                });
-                        startActivityForResult(edit, 101);
-
-                        //System.out.println(Environment.getExternalStorageDirectory() + File.separator + "Pictures" + File.separator + "DS_Photo_Editor");
-
-                        break;
-                    case R.id.copy:
-                        Intent choose = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                        startActivityForResult(choose, READ_REQUEST_CODE);
-                        break;
-                    case R.id.share:
-//                        File imageFile = new File(path);
-//                        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-//                        Bitmap icon = bitmap;
-//                        Intent share = new Intent(Intent.ACTION_SEND);
-//                        share.setType("image/jpeg");
-//                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                        icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//                        File f = new File(Environment.getExternalStorageDirectory() + File.separator + "temporary_file.jpg");
-//                        try {
-//                            f.createNewFile();
-//                            FileOutputStream fo = new FileOutputStream(f);
-//                            fo.write(bytes.toByteArray());
-//                            fo.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        System.out.println("GGGGG "+FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", f));
-//                        share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", f));
-//                        startActivity(Intent.createChooser(share, "Share Image"));
-                        File file = new File(path);
-                        Uri uri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", file);
-                        Intent share = new Intent(Intent.ACTION_SEND);
-                        share.setType("image/*");
-                        share.putExtra(Intent.EXTRA_STREAM, uri);
-                        startActivity(share);
-                        break;
-                    case R.id.setWall:
-                        File f1 = new File(path);
-                        if(f1.exists()) {
-                            Bitmap bmp = BitmapFactory.decodeFile(path);
-                            WallpaperManager m=WallpaperManager.getInstance(getApplicationContext());
-                            try {
-                                m.setBitmap(bmp);
-                                Toast.makeText(getApplicationContext(), "Wallpaper set", Toast.LENGTH_SHORT).show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Error occurs while setting Wallpaper ", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        break;
-                    case R.id.details:
-                        try {
-                            listOfImageByLoc.listOfImageByLocation(getApplicationContext(), "LONG AN");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        Intent intent2 = new Intent(FullScreenActivity.this, DetailsScreen.class);
-                        finish();
-                        intent2.putExtra("path", path);
-                        startActivity(intent2);
-                        break;
-                }
-                return true;
-            }
-        });
-        popupMenu.show();
-    }
 
     private void openDialog() {
         TagPop tagPop = new TagPop();
@@ -403,21 +300,217 @@ public class FullScreenActivity extends AppCompatActivity implements TagPop.Exam
         path = i.getExtras().getString("path");
         File imgFile = new  File(path);
 
-        btnMore = findViewById(R.id.btnMore);
-        btnMore.setOnClickListener(new View.OnClickListener() {
+        toolbar = findViewById(R.id.toolbarFullscreen);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(path);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        String activityName = i.getExtras().getString("PreviousActivity");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showMenu();
+                System.out.println(activityName);
+                if (activityName.equals(MainActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(ByDateActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, ByDateActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(FavoriteViewActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, FavoriteViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(LocationViewActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, LocationViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+                else if (activityName.equals(LoggedSecurityViewActivity.class.toString())){
+                    Intent intent = new Intent(FullScreenActivity.this, LoggedSecurityViewActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
             }
         });
 
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+
+
+        bottomAppBar = findViewById(R.id.bottombarFullscreen);
+
+        Menu menu = bottomAppBar.getMenu();
+        MenuItem fav = menu.findItem(R.id.Favorite);
+        sharedPreferences = getSharedPreferences("State", 0);
+        Boolean stateImage = sharedPreferences.getBoolean(path, false);
+        System.out.println(stateImage);
+        if (stateImage){
+            fav.setIcon(R.drawable.ic_fav_yes);
+        }
+        else{
+            fav.setIcon(R.drawable.ic_fav_no);
+        }
+        bottomAppBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.Favorite:
+
+                        if(!stateImage){
+                            fav.setIcon(R.drawable.ic_fav_yes);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean(path, true);
+                            editor.apply();
+                            System.out.println("Selected");
+                            recreate();
+                        }
+                        else{
+                            fav.setIcon(R.drawable.ic_fav_no);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean(path, false);
+                            editor.apply();
+                            System.out.println("Not selected");
+                            recreate();
+                        }
+                        break;
+                    case R.id.Edit:
+                        Intent edit = new Intent(FullScreenActivity.this, DsPhotoEditorActivity.class);
+                        edit.setData(Uri.fromFile(new File(path)));
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY, "Photo Editor");
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_TOOL_BAR_BACKGROUND_COLOR, Color.parseColor("#333333"));
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_MAIN_BACKGROUND_COLOR, Color.parseColor("#FFFFFF"));
+
+                        edit.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE,
+                                new int[]{DsPhotoEditorActivity.TOOL_WARMTH,
+                                        DsPhotoEditorActivity.TOOL_PIXELATE,
+                                        DsPhotoEditorActivity.TOOL_FRAME,
+                                        DsPhotoEditorActivity.TOOL_ROUND,
+                                        DsPhotoEditorActivity.TOOL_VIGNETTE,
+                                        DsPhotoEditorActivity.TOOL_SHARPNESS,
+                                });
+                        startActivityForResult(edit, 101);
+                        break;
+                    case R.id.Delete:
+                        deleteImage(path);
+                        System.out.println(activityName);
+                        if (activityName.equals(MainActivity.class.toString())){
+                            Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else if (activityName.equals(ByDateActivity.class.toString())){
+                            Intent intent = new Intent(FullScreenActivity.this, ByDateActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else if (activityName.equals(FavoriteViewActivity.class.toString())){
+                            Intent intent = new Intent(FullScreenActivity.this, FavoriteViewActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else if (activityName.equals(LocationViewActivity.class.toString())){
+                            Intent intent = new Intent(FullScreenActivity.this, LocationViewActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else if (activityName.equals(LoggedSecurityViewActivity.class.toString())){
+                            Intent intent = new Intent(FullScreenActivity.this, LoggedSecurityViewActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.Share:
+                        File file = new File(path);
+                        Uri uri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() +
+                                ".provider", file);
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("image/*");
+                        share.putExtra(Intent.EXTRA_STREAM, uri);
+                        startActivity(share);
+                        break;
+                }
+                return true;
             }
         });
+
+//        btnMore = findViewById(R.id.btnMore);
+//        btnMore.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showMenu();
+//            }
+//        });
+
+//        btnBack = findViewById(R.id.btnBack);
+//        btnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String activityName = i.getExtras().getString("PreviousActivity");
+//                System.out.println(activityName);
+//
+//                if (activityName.equals(MainActivity.class.toString())){
+//                    Intent intent = new Intent(FullScreenActivity.this, MainActivity.class);
+//                    finish();
+//                    startActivity(intent);
+//                }
+//                else if (activityName.equals(ByDateActivity.class.toString())){
+//                    Intent intent = new Intent(FullScreenActivity.this, ByDateActivity.class);
+//                    finish();
+//                    startActivity(intent);
+//                }
+//                else if (activityName.equals(FavoriteViewActivity.class.toString())){
+//                    Intent intent = new Intent(FullScreenActivity.this, FavoriteViewActivity.class);
+//                    finish();
+//                    startActivity(intent);
+//                }
+//                else if (activityName.equals(LocationViewActivity.class.toString())){
+//                    Intent intent = new Intent(FullScreenActivity.this, LocationViewActivity.class);
+//                    finish();
+//                    startActivity(intent);
+//                }
+//                else if (activityName.equals(LoggedSecurityViewActivity.class.toString())){
+//                    Intent intent = new Intent(FullScreenActivity.this, LoggedSecurityViewActivity.class);
+//                    finish();
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+
+//        btnFav = findViewById(R.id.btnFavorite);
+//
+//        System.out.println(stateImage);
+//        if (stateImage){
+//            btnFav.setImageResource(R.drawable.ic_fav_yes);
+//        }
+//        else{
+//            btnFav.setImageResource(R.drawable.ic_fav_no);
+//        }
+//        btnFav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                btnFav.setSelected(!btnFav.isSelected());
+//
+//                if (btnFav.isSelected()) {
+//                    btnFav.setImageResource(R.drawable.ic_fav_yes);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putBoolean(path, true);
+//                    editor.apply();
+//                    System.out.println("Selected");
+//                } else {
+//                    btnFav.setImageResource(R.drawable.ic_fav_no);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putBoolean(path, false);
+//                    editor.apply();
+//                    System.out.println("Not selected");
+//                }
+//            }
+//        });
 
         if(imgFile.exists()){
 
@@ -455,6 +548,52 @@ public class FullScreenActivity extends AppCompatActivity implements TagPop.Exam
             myImage.setImageBitmap(rotatedBitmap);
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.setting_img_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.details:
+                try {
+                    listOfImageByLoc.listOfImageByLocation(getApplicationContext(), "LONG AN");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent intent2 = new Intent(FullScreenActivity.this, DetailsScreen.class);
+                finish();
+                intent2.putExtra("path", path);
+                startActivity(intent2);
+                break;
+            case R.id.setWall:
+                File f1 = new File(path);
+                if(f1.exists()) {
+                    Bitmap bmp = BitmapFactory.decodeFile(path);
+                    WallpaperManager m=WallpaperManager.getInstance(getApplicationContext());
+                    try {
+                        m.setBitmap(bmp);
+                        Toast.makeText(getApplicationContext(), "Wallpaper set", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Error occurs while setting Wallpaper ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case R.id.copy:
+                Intent choose = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                startActivityForResult(choose, READ_REQUEST_CODE);
+                break;
+            case R.id.tag:
+                openDialog();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

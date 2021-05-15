@@ -18,4 +18,11 @@
     <string name="set_as_wallpaper">设置为墙纸</string>
     <string name="create_album">建立相簿</string>
     <string name="view_by_date">按日期查看</string>
+    <string name="view_people">人们</string>
+    <string name="view_by_people">按人查看</string>
+    <string name="change_to_linear_layout">改成 Linear layout</string>
+    <string name="change_to_grid_layout">改成 Grid layout</string>
+    <string name="copy">复制</string>
+    <string name="tag_location">标签位置</string>
+    <string name="slideshow">幻灯片放映</string>
 </resources>

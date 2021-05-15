@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/details_vid"
+        android:title="@string/details"/>
     <item android:id="@+id/delete_vid"
         android:title="@string/delete_pic"/>
     <item android:id="@+id/copy_vid"
-        android:title="Copy"/>
-    <item android:id="@+id/details_vid"
-        android:title="@string/details"/>
+        android:title="@string/copy"/>
 </menu>

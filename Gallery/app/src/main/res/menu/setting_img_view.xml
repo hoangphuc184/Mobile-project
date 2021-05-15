@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/delete"
-        android:title="@string/delete_pic"/>
-    <item android:id="@+id/copy"
-        android:title="Copy"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/details"
+        android:title="@string/details" />
     <item android:id="@+id/setWall"
         android:title="@string/set_as_wallpaper"/>
-    <item android:id="@+id/share"
-        android:title="Share"/>
-    <item android:id="@+id/edit"
-        android:title="Edit image"/>
+    <item android:id="@+id/copy"
+        android:title="@string/copy"/>
     <item android:id="@+id/tag"
-        android:title="Tag location"/>
-    <item android:id="@+id/details"
-        android:title="@string/details"/>
+        android:title="@string/tag_location"/>
+
 </menu>

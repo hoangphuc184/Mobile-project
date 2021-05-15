@@ -200,6 +200,7 @@ public class ByPeopleActivity extends AppCompatActivity {
             public void onPhotoClick(String path) {
                 Intent intent = new Intent(getApplicationContext(), FullScreenActivity.class);
                 intent.putExtra("path", path);
+                intent.putExtra("PreviousActivity", ByPeopleActivity.class.toString());
                 startActivity(intent);
             }
         });

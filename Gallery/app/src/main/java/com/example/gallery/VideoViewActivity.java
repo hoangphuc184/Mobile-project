@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -54,7 +55,7 @@ public class VideoViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         try {
-            fetchVideoFromGallery();
+            fetchVideoFromGallery(1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -162,11 +163,32 @@ public class VideoViewActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent);
                 break;
+
+            case R.id.change_grid_layout:
+                try {
+                    fetchVideoFromGallery(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }break;
+            case R.id.change_linear_layout:
+                try {
+                    fetchVideoFromGallery(2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchVideoFromGallery() throws IOException {
+    private void fetchVideoFromGallery(int opt) throws IOException {
+        if (opt == 1)
+            layoutManager = new GridLayoutManager(getApplicationContext(),2);
+        else if (opt == 2){
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        }
+        recyclerView.setLayoutManager(layoutManager);
         listOfVideo = VideosGallery.listOfVideos(this);
         videoAdapter = new VideoAdapter(this, listOfVideo, VideoViewActivity.this);
         recyclerView.setAdapter(videoAdapter);

@@ -53,7 +53,6 @@ public class DetailsScreen extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> {
-
             Intent intent2 = new Intent(DetailsScreen.this, FullScreenActivity.class);
             intent2.putExtra("path", path);
             finish();

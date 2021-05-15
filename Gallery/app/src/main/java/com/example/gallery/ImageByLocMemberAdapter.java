@@ -40,6 +40,7 @@ public class ImageByLocMemberAdapter extends RecyclerView.Adapter<ImageByLocMemb
             public void onClick(View v) {
                 Intent intent = new Intent(context, FullScreenActivity.class);
                 intent.putExtra("path", image);
+                intent.putExtra("PreviousActivity", context.getClass().toString());
                 context.startActivity(intent);
             }
         });

@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsScreen"
-    android:background="@color/black">
-
+    tools:context=".DetailsScreen">
     <ImageButton
         android:id="@+id/btnBackDVV"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@color/black"
+        android:background="@color/transparent"
         android:src="@drawable/ic_back"
         tools:ignore="MissingConstraints"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Details"
-        android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintStart_toEndOf="@+id/btnBackDVV"
         android:layout_marginLeft="@dimen/_10sdp"
@@ -47,7 +44,6 @@
     <TextView
         android:id="@+id/create_date_DVV"
         android:text="dddd"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/cale"
@@ -70,7 +66,6 @@
     <TextView
         android:id="@+id/file_name_tv_DVV"
         android:text="ddddddddd"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
@@ -82,7 +77,6 @@
     <TextView
         android:id="@+id/path_file_tv_DVV"
         android:layout_width="@dimen/_200sdp"
-        android:textColor="@color/white"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         android:text="dddddd"
@@ -97,7 +91,6 @@
         android:text="zzzzzzz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/path_file_tv_DVV"
         android:layout_marginTop="@dimen/_10sdp"
@@ -107,7 +100,6 @@
         android:text="zzzzzzz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/size"
         android:layout_marginTop="@dimen/_10sdp"
@@ -118,7 +110,6 @@
         android:text="sdsdsds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/path_file_tv_DVV"
         android:layout_marginTop="@dimen/_10sdp"
